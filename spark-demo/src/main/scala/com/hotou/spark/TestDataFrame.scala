@@ -1,19 +1,15 @@
 package com.hotou.spark
 
-import org.apache.spark.sql.expressions.Window
+import org.apache.spark.SparkContext
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.sql.types.{StructField, StructType, _}
 import org.apache.spark.sql.{Row, SQLContext}
-import org.apache.spark.{SparkConf, SparkContext}
 
 object TestDataFrame {
   def main(args: Array[String]) {
 
-    val conf = new SparkConf()
-      .setAppName("Test Spark")
-      .setMaster("local")
-    val sc = new SparkContext(conf)
+    val sc = new SparkContext("local", "Test Spark", System.getenv("SPARK_HOME"),
+      SparkContext.jarOfClass(this.getClass).toSeq)
     val sqlContext = new SQLContext(sc)
     import sqlContext.implicits._
 
